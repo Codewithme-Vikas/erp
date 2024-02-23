@@ -1,0 +1,60 @@
+
+
+<%- include("partial/head.ejs") %> <%- include("partial/nav.ejs") %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2"><%- include("partial/sidebar.ejs") %>
+    </div>
+    <div class="col-10">
+      <div class="row bg-light p-3 shadow m-3">
+        <!-- <div class="col-6 bg-info"> -->
+          <h1>Received</h1>
+          <form method="post" >
+            <div class="d-flex justify-content-around">
+            <div class=" w-50">
+            <div class="mb-1"> 
+              <label for="name">Customer Name</label>
+              <input type="text" class="form-control" value="<%= name %>" aria-label="name" name="name"/>
+            </div>
+            <div class="mb-1">
+              <label for="due">Due</label>
+              <% 
+              var sum=0; 
+              data.forEach((item)=>{
+                  sum+=item.sale_gsum-item.advance
+              }) 
+              receiveddata.forEach((element)=>{
+                sum-=element.received
+              })
+              %>
+              <input type="number" class="form-control" aria-label="add" id="due" value="<%=sum %>" name="due"/>
+            </div>
+            <div class="mb-1">
+              <label for="received">Received</label>
+              <input type="number" class="form-control" aria-label="received" id="received" name="received"/>
+            </div>
+            <div class="mb-1">
+              <label for="balance">Balance</label>
+              <input type="number" class="form-control" aria-label="balance" id="balance" name="balance"/>
+            </div>
+            <button type="submit" class="btn btn-primary">Received</button>
+          </div>                   
+        </div>
+          </form>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+ const due = document.getElementById("due");
+ const received = document.getElementById("received");
+ const balance = document.getElementById("balance");
+
+ function getbalance(){
+  balance.value = due.value - received.value    
+ }
+ received.addEventListener("input", getbalance);   
+</script>
+<%- include("partial/footer.ejs") %>

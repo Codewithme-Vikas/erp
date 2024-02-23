@@ -1,0 +1,90 @@
+<%- include("partial/head.ejs") %> <%- include("partial/nav.ejs") %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2"><%- include("partial/sidebar.ejs") %></div>
+    <div class="col-10">
+
+
+      <!-- search bar -->
+      <div class="input-group">
+        <div class="mb-3 m-2">
+          <input id="search-box" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Search">
+        </div>
+      </div>
+      
+        <div class="row bg-light p-3 shadow m-3 ">
+        
+          <h1>Product Reports</h1>
+          <table class="table-sm table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Product Name</th>
+                <th scope="col">Opening</th>
+                <th scope="col">Purchase</th>
+                <th scope="col">Sale</th>
+                <th scope="col">Closing</th>
+                
+                
+              </tr>
+            </thead>
+            <tbody>
+              <% data.forEach((item)=>{ %>
+              <tr>
+
+                <!-- productName will be used for search -->
+                <th scope="row" class="productName"><%= item.stockname %></th>
+                
+                <td><%= item.qty %></td>
+                <td></td>
+                <% var sum=0; 
+                  saledata.forEach((e, i) =>{
+                  var index = e.product_name.indexOf(item.stockname)
+                  if(index >=0){
+                  sum+=Number(e.product_qty[index])                 
+                  }
+                })  
+                var ope = Number(item.qty)
+                var closing = ope-sum
+                %>
+                <td><%= sum %></td>
+                <td><%= closing %></td> 
+                               
+                <td>
+                  <form method="get" action="/customer/report/<%= item.name %>">  
+                    <button class="btn btn-primary">View</button>
+                  </form>
+                </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const searchBox = document.getElementById("search-box");
+
+  // product named th
+  const productsName = document.getElementsByClassName("productName")
+
+  searchBox.addEventListener("input", (e)=>{
+    filterCustomers(e.target.value , productsName)
+  } );
+
+  function filterCustomers( searchKey , Items ){
+    Array.from( Items ).forEach( ele =>{
+      if( ele.innerText.toLowerCase().includes(searchKey.toLowerCase())){
+        ele.parentElement.style.display = "table-row"
+      }else{
+        ele.parentElement.style.display = "none"
+      }
+    })
+  }
+
+  
+
+</script>
+<%- include("partial/footer.ejs") %>

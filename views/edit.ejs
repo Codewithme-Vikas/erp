@@ -1,0 +1,34 @@
+<%- include("partial/head.ejs") %> 
+<%- include("partial/nav.ejs") %>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2"><%- include("partial/sidebar.ejs") %></div>
+            <div class="col-6">
+                <h1>Update form</h1>
+                <form action="/customer/update/<%= data._id %>" method="post">
+                    <div class="mb-3"> 
+                        <input type="text" class="form-control" placeholder="User Name" aria-label="name" name="name" value="<%= data.name %>">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Address" aria-label="add" name="add" value="<%= data.add %>">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Mob" aria-label="mob" name="mob" value="<%= data.mob %>">
+                    </div>
+                    <div class="mb-3">                        
+                        <input type="email" class="form-control" placeholder="email" id="exampleInputEmail1" aria-describedby="email" name="email" value="<%= data.email %>">                        
+                    </div>
+                    <div class="mb-3">                        
+                        <input type="text" class="form-control" placeholder="GST No." aria-describedby="gst" name="gst" value="<%= data.gst %>">                        
+                    </div>
+                    <div class="mb-3">                        
+                        <input type="text" class="form-control" placeholder="PAN No." aria-describedby="pan" name="pan" value="<%= data.pan %>">                        
+                    </div>                  
+                    
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+           
+        </div>
+    </div>
+    <%- include("partial/footer.ejs") %>

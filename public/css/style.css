@@ -1,0 +1,52 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(213, 227, 232);
+}
+#navbar{
+    position: sticky;
+    top: 0;
+}
+#sidebar{
+    position: sticky;
+    top: 56px;
+    left: 0;
+    height: 90vh;
+    background-color: white;
+}
+
+#sale_total, #sale_table input{
+    width: 100%;
+    border-style: none;
+    
+}
+/* #editsale_table input{
+    width: 100%;
+    border-style: none;
+    
+} */
+#sale_table button{
+    padding: 5px;
+}
+
+#customer_name, #add, #mob, #gst{
+    border-style: none;
+    background: transparent;
+}
+
+@media print{
+    #sidebar{
+        display: none;
+    }
+    #navbar{
+        display: none;
+    }
+    #add_product{
+        display: none;
+    }
+    
+}

@@ -1,0 +1,148 @@
+<%- include("partial/head.ejs") %>
+<style>
+  
+</style>
+<%- include("partial/nav.ejs") %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2"><%- include("partial/sidebar.ejs") %></div>
+    <div class="col-10">
+      
+        <div class="row bg-light p-3 shadow m-3 ">
+        
+          <h3>Sale Details</h3>
+          <table class="table-sm table-bordered mb-3">
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Invoice No.</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Sale Amount</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <% data.forEach((item)=>{ %>
+              <tr>
+                <% var dt = item.date
+                  newdt = dt.toLocaleDateString("en-IN", {format: "dd-mm-yyyy"})          
+                %>
+                <td><%= newdt %></td>
+                <td><%= item.invoice %></td>
+                <td><%= item.product_name %></td>
+                <td class="customer_sale"><%= item.sale_gsum %></td>                
+              </tr>              
+              <% }) %>
+              <tr>
+                <th colspan="3" >Total</th>
+                <th id="sale_total"></th>
+                
+              </tr>
+            </tbody>
+          </table>
+          <h3>Advnace Received</h3>
+          <table class="table-sm table-bordered mb-3">
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Invoice No.</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Advance Received</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <% data.forEach((item)=>{ 
+                if(item.advance != 0){%>
+
+                <% var dt = item.date
+            newdt = dt.toLocaleDateString("en-IN", {format: "dd-mm-yyyy"})          
+            %>
+              <tr>
+                <td><%= newdt %></td>
+                <td><%= item.invoice %></td>
+                <td><%= item.product_name %></td>
+                <td class="customer_advance"><%= item.advance %></td>                
+              </tr>              
+              <% }}) %>
+              <tr>
+                <th colspan="3" >Total</th>
+                <th id="advance_total"></th>
+                
+              </tr>
+            </tbody>
+          </table>
+          <h3>Received</h3>
+          <table class="table-sm table-bordered mb-3">
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Received</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <% receiveddata.forEach((item)=>{ %>
+              <tr>
+                <% var dt = item.date
+            newdt = dt.toLocaleDateString("en-IN", {format: "dd-mm-yyyy"})          
+            %>
+                <td><%= newdt %></td>
+                <td class="customer_received"><%= item.received %></td>                
+              </tr>              
+              <% }) %>
+              <tr>
+                <th colspan="" >Total</th>
+                <th id="received_total"></th>
+                
+              </tr>
+            </tbody>
+          </table>
+          <table class="table-sm table-bordered mb-3">
+            <thead>
+              <tr>
+                <th scope="col" >Balance</th>
+                <th scope="col" id="balance"></th>
+             </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- script -->
+<script>
+  
+const sale_total = document.getElementById("sale_total");
+const customer_sale = document.getElementsByClassName("customer_sale")
+const advance_total = document.getElementById("advance_total");
+const customer_advance = document.getElementsByClassName("customer_advance")
+const received_total = document.getElementById("received_total");
+const customer_received = document.getElementsByClassName("customer_received")
+const balance = document.getElementById("balance")
+let sum = 0;
+for (const element of customer_sale) {
+  sum+= Number(element.innerHTML)
+}
+sale_total.innerHTML = sum;
+
+let advance_sum = 0;
+for (const element of customer_advance) {
+  advance_sum+= Number(element.innerHTML)
+}
+advance_total.innerHTML = advance_sum;
+
+let received_sum = 0;
+for (const element of customer_received) {
+  received_sum+= Number(element.innerHTML)
+}
+received_total.innerHTML = received_sum;
+
+balance.innerHTML = sum-advance_sum-received_sum
+
+</script>
+  
+
+<%- include("partial/footer.ejs") %>

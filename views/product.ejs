@@ -1,0 +1,93 @@
+<%- include("partial/head.ejs") %> <%- include("partial/nav.ejs") %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2"><%- include("partial/sidebar.ejs") %></div>
+    <div class="col-10">
+      <div class="row bg-light p-3 shadow m-3">
+        
+          <h1>Add Stock</h1>
+          <form method="post" >
+        
+            <div class="m-3 d-flex justify-content-around">
+            <div class="m-2 w-75">              
+              <input type="text" class="form-control" placeholder="Stock Name" aria-label="stockname" name="stockname"/>
+            </div>
+            <div class="m-2 w-25">
+              <input type="text-box" class="form-control" placeholder="Unit Name" aria-label="unit" name="unit"/>
+            </div>              
+          </div>
+          <div class="m-3 d-flex justify-content-around">
+            <div class="m-2 w-50">
+              <label for="">Opening Quantity</label>
+              <input type="number" class="form-control" value="0" placeholder="" aria-label="qty" name="qty" id="product_qty"/>
+            </div>
+            <div class="m-2 w-50">
+              <label for="">Rate</label>
+              <input type="number" class="form-control" value="0" placeholder="" aria-label="rate" name="rate" id="product_rate"/>
+            </div>
+            <div class="m-2 w-50">
+              <label for="">Value</label>
+              <input type="number" class="form-control" value="0" placeholder="" aria-label="value" name="value" id="product_value"/>
+            </div>
+          </div>
+          <div class="m-3 d-flex justify-content-around">
+            <div class="m-2 w-50">
+              <label for="">CGST</label>
+              <input type="number" class="form-control" value="0" placeholder="" aria-label="cgst" name="cgst"/>
+            </div>
+            <div class="m-2 w-50">
+              <label for="">SGST</label>
+              <input type="number" class="form-control" value="0" placeholder="GST No." aria-label="sgst" name="sgst"/>
+            </div>
+            <div class="m-2 w-50">
+              <label for="">IGST  </label>
+              <input type="number" class="form-control" value="0" placeholder="Pan No." aria-label="igst" name="igst"/>
+            </div>
+          </div>          
+          
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+      </div>
+        <div class="row bg-light p-3 shadow m-3 ">
+        
+          <h1>My Data</h1>
+          <table class="table-sm table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Stock Name</th>
+                <th scope="col">Unit</th>
+                <th scope="col">Stock</th>
+                <th scope="col">CGST</th>
+                <th scope="col">SGST</th>
+                <th scope="col">IGST</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% data.forEach((item)=>{ %>
+              <tr>
+                <th scope="row"><%= item.stockname %></th>
+                <td><%= item.unit %></td>
+                <td><%= item.qty %></td>
+                <td><%= item.cgst %></td>
+                <td><%= item.sgst %></td>
+                <td><%= item.igst %></td>
+                <td>
+                  <form method="get" action="/product/edit/<%= item._id %>">
+                    <button class="btn btn-primary">Edit</button>
+                  </form>
+                </td>
+                <td>
+                  <form method="post" action="/product/delete/<%= item._id %>">
+                    <button class="btn btn-primary">delete</button>
+                  </form>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include("partial/footer.ejs") %>

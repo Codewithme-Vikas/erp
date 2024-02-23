@@ -1,0 +1,39 @@
+<%- include("partial/head.ejs") %> <%- include("partial/nav.ejs") %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2"><%- include("partial/sidebar.ejs") %></div>
+    <div class="col-10">
+      
+        <div class="row bg-light p-3 shadow m-3 ">
+        
+          <h1>Customer Reports</h1>
+          <table class="table-sm table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Customer Name</th>
+                <th scope="col">Address</th>
+             
+                               
+              </tr>
+            </thead>
+            <tbody>
+              <% data.forEach((item)=>{ %>
+              <tr>
+                <th scope="row"><%= item.name %></th>
+                <td><%= item.add %></td>
+                                
+                <td>
+                  <form method="get" action="/receivedlist/<%= item.name %>">  
+                    <button class="btn btn-primary">Received</button>
+                  </form>
+                </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include("partial/footer.ejs") %>

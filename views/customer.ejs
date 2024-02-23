@@ -1,0 +1,95 @@
+<%- include("partial/head.ejs") %> <%- include("partial/nav.ejs") %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2"><%- include("partial/sidebar.ejs") %>
+    </div>
+    <div class="col-10">
+      <div class="row bg-light p-3 shadow m-3">
+        <!-- <div class="col-6 bg-info"> -->
+          <h1>Create Customer</h1>
+          <form method="post" >
+            <div class="d-flex justify-content-around">
+            <div class=" w-50 m-3">
+
+            <div class="mb-3"> 
+              <!-- <label for="">Customer Name</label>              -->
+              <input type="text" class="form-control" placeholder="Customer Name" aria-label="name" name="name"/>
+            </div>
+
+            <div class="mb-3">
+              <input type="text-box" class="form-control" placeholder="Address" aria-label="add" name="add"/>
+            </div>
+
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="Mob" aria-label="mob" name="mob"/>
+            </div>
+
+          </div>
+
+          
+          <div class=" w-50 m-3">
+            
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="email" aria-label="email" name="email"/>
+            </div>
+
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="GST No." aria-label="gst" name="gst"/>
+            </div>
+            
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="Pan No." aria-label="pan" name="pan"/>
+            </div>
+          </div>          
+
+        </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="/sale" class="mx-2">Go to Sale</a>
+          </form>
+        </div>
+
+
+        <!-- customers list -->
+        <div class="row bg-light p-3 shadow m-3 ">
+        <!-- <div class="col-6"> -->
+          <h1>My Data</h1>
+          <table class="table-sm table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">User Name</th>
+                <th scope="col">Address</th>
+                <th scope="col">Mobile No.</th>
+                <th scope="col">Emial ID</th>
+                <th scope="col">GST No.</th>
+                <th scope="col">Pan No.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% data.forEach((item)=>{ item %>
+              <tr>
+                <th scope="row" id="c_name"><%= item.name %></th>
+                <td><%= item.add %></td>
+                <td><%= item.mob %></td>
+                <td><%= item.email %></td>
+                <td><%= item.gst %></td>
+                <td><%= item.pan %></td>
+                <td>
+                  <form method="get" action="/customer/edit/<%= item._id %>">
+                    <button class="btn btn-primary">Edit</button>
+                  </form>
+                </td>
+                <td>
+                  <form method="post" action="/customer/delete/<%= item._id %>">
+                    <button class="btn btn-primary">delete</button>
+                  </form>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include("partial/footer.ejs") %>

@@ -1,0 +1,110 @@
+<%- include("partial/head.ejs") %> <%- include("partial/nav.ejs") %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2"><%- include("partial/sidebar.ejs") %></div>
+    <div class="col-10">
+      
+        <div class="row bg-light p-3 shadow m-3 ">
+        
+          <h1>My Data</h1>
+
+           <!-- search bar -->
+           
+          <div class="input-group">
+
+            <div class="mb-3 m-2 d-flex gap-2">
+
+              <select id="select-box" class="form-select" aria-label="Default select example">
+                <option value="customerName">Customer Name</option>
+                <option value="date">Date</option>
+                <option value="invoiceNo">Invoice no</option>
+              </select>
+
+              <input id="search-box" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Search">
+
+            </div>
+          </div>
+
+
+
+          <table class="table-sm table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Invoice No.</th>
+                <th scope="col">Customer Name</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Sale Amount</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <% saledata.forEach((item)=>{ %>
+              <tr>
+                <% var dt = item.date
+                  newdt = dt.toLocaleDateString("en-IN", {format: "dd-mm-yyyy"})          
+                %>
+                <th scope="row" class="saleDate"><%= newdt %></th>
+                <td class="invoiceNo"><%= item.invoice %></td>
+                <td class="customerName"><%= item.customer_name %></td>
+                <td><%= item.product_name %></td>
+                <td><%= item.sale_gsum %></td>                
+                <td>
+                  <form method="get" action="/sale/edit/<%= item._id %>">
+                    <button class="btn btn-primary">Edit</button>
+                  </form>                  
+                </td>
+                <td>
+                  <form method="get" action="/printsale/<%= item._id %>">
+                    <button class="btn btn-primary">Print</button>
+                  </form>                  
+                </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  const searchBox = document.getElementById("search-box");
+  const selectBox = document.getElementById("select-box");
+  console.log( selectBox.value , "select value")
+
+  // date named th
+  const salesDate = document.getElementsByClassName("saleDate")
+  const invoiceNos = document.getElementsByClassName("invoiceNo")
+  const customersName = document.getElementsByClassName("customerName")
+
+  searchBox.addEventListener("input", (e)=>{
+    let items;
+    if( selectBox.value === "customerName"){
+      items = customersName;
+    }else if( selectBox.value === "date"){
+      items = salesDate
+    } else if( selectBox.value === "invoiceNo"){
+      items = invoiceNos
+    }
+    
+    filterCustomers(e.target.value , items)
+  });
+
+  function filterCustomers( searchKey , Items ){
+    Array.from( Items ).forEach( ele =>{
+      if( ele.innerText.toLowerCase().includes(searchKey.toLowerCase())){
+        ele.parentElement.style.display = "table-row"
+      }else{
+        ele.parentElement.style.display = "none"
+      }
+    })
+  }
+
+  
+
+</script>
+
+<%- include("partial/footer.ejs") %>

@@ -1,0 +1,54 @@
+<%- include("partial/head.ejs") %> 
+<%- include("partial/nav.ejs") %>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2"><%- include("partial/sidebar.ejs") %></div>
+            <div class="col-10 ">
+              <div class="row bg-light p-3 shadow m-3">
+                <h1>Update form</h1>
+                <form action="/product/update/<%= data._id %>" method="post">
+                    <div class="m-3 d-flex justify-content-around">
+                        <div class="m-2 w-75">              
+                          <input type="text" class="form-control" value="<%= data.stockname %>" placeholder="Stock Name" aria-label="stockname" name="stockname"/>
+                        </div>
+                        <div class="m-2 w-25">
+                          <input type="text-box" class="form-control" value="<%= data.unit %>" placeholder="Unit Name" aria-label="unit" name="unit"/>
+                        </div>              
+                      </div>
+                      <div class="m-3 d-flex justify-content-around">
+                        <div class="m-2 w-50">
+                          <label for="">Opening Quantity</label>
+                          <input type="number" class="form-control" value="<%= data.qty %>" placeholder="" aria-label="qty" name="qty" id="product_qty"/>
+                        </div>
+                        <div class="m-2 w-50">
+                          <label for="">Rate</label>
+                          <input type="number" class="form-control" value="<%= data.rate %>" placeholder="" aria-label="rate" name="rate" id="product_rate"/>
+                        </div>
+                        <div class="m-2 w-50">
+                          <label for="">Value</label>
+                          <input type="number" class="form-control" value="<%= data.value %>" placeholder="" aria-label="value" name="value" id="product_value"/>
+                        </div>
+                      </div>
+                      <div class="m-3 d-flex justify-content-around">
+                        <div class="m-2 w-50">
+                          <label for="">CGST</label>
+                          <input type="number" class="form-control" value="<%= data.cgst %>" placeholder="" aria-label="cgst" name="cgst"/>
+                        </div>
+                        <div class="m-2 w-50">
+                          <label for="">SGST</label>
+                          <input type="number" class="form-control" value="<%= data.sgst %>" placeholder="GST No." aria-label="sgst" name="sgst"/>
+                        </div>
+                        <div class="m-2 w-50">
+                          <label for="">IGST  </label>
+                          <input type="number" class="form-control" value="<%= data.igst %>" placeholder="Pan No." aria-label="igst" name="igst"/>
+                        </div>
+                      </div>          
+                    
+                        <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+              </div>
+            </div>
+           
+        </div>
+    </div>
+    <%- include("partial/footer.ejs") %>

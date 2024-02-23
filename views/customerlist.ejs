@@ -1,0 +1,106 @@
+<%- include("partial/head.ejs") %>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.bootstrap5.css">
+<%- include("partial/nav.ejs") %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2"><%- include("partial/sidebar.ejs") %></div>
+    <div class="col-10">
+
+      <!-- search bar -->
+      <div class="input-group">
+
+        <div class="mb-3 m-2 d-flex gap-2">
+
+          <select id="select-box" class="form-select" aria-label="Default select example">
+            <option value="customerName">Customer Name</option>
+            <option value="address">Customer Address</option>
+            <option value="mobileNo">Mobile No</option>
+          </select>
+
+          <input id="search-box" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Search">
+
+        </div>
+      </div>
+
+
+
+      
+        <div class="row bg-light p-3 shadow m-3 ">
+        
+          <h1>Customer Reports</h1>
+          <table id="example" class="table table-striped" style="width:100%">
+            <thead>
+              <tr>
+                <th scope="col">Customer Name</th>
+                <th scope="col">Address</th>
+                <th scope="col">Mobile No.</th>
+                <th scope="col">Email ID</th>
+                <th scope="col">GST Number</th>
+                <th scope="col">PAN Number</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <% data.forEach((item)=>{ %>
+              <tr class="customerData">
+                <th scope="row" class="customerName"><%= item.name %></th>
+                <td class="address"><%= item.add %></td>
+                <td class="mobileNo"><%= item.mob %></td>
+                <td><%= item.email %></td>
+                <td><%= item.gst %></td> 
+                <td><%= item.pan %></td>                
+                <td>
+                  <form method="get" action="/customer/report/<%= item.name %>">  
+                    <button class="btn btn-primary">View</button>
+                  </form>
+                </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  const searchBox = document.getElementById("search-box");
+  const selectBox = document.getElementById("select-box");
+
+  // date named th
+  const addressList = document.getElementsByClassName("address")
+  const customersName = document.getElementsByClassName("customerName")
+  const mobileNoList = document.getElementsByClassName("mobileNo")
+
+  searchBox.addEventListener("input", (e)=>{
+    let items;
+    if( selectBox.value === "customerName"){
+      items = customersName;
+    }else if( selectBox.value === "address"){
+      items = addressList;
+    } else if( selectBox.value === "mobileNo"){
+      items = mobileNoList;
+    }
+
+    filterCustomers(e.target.value , items)
+  });
+
+  function filterCustomers( searchKey , Items ){
+    Array.from( Items ).forEach( ele =>{
+      if( ele.innerText.toLowerCase().includes(searchKey.toLowerCase())){
+        ele.parentElement.style.display = "table-row"
+      }else{
+        ele.parentElement.style.display = "none"
+      }
+    })
+  }
+
+  
+
+</script>
+
+<%- include("partial/footer.ejs") %>
