@@ -19,41 +19,48 @@
             
             
             <!-- customer data -->
-            <div class="col-6">
-              <p>Billed To :</p>
+            <p>Billed To :</p>
+            <div class="col-6 d-flex flex-column gap-2">
 
-              <label for="customer">Select Customer Name</label>
-              <select name="Select" value="Select" id="customer">
-                <option disabled selected>Select Customer</option>
-                <% customerdata.forEach((item) => { %>
-                <option
-                  value="<%= item.name %>--<%= item.add  %>--<%= item.mob  %>--<%= item.gst  %>"
-                  name="selectcus"
-                  id="selectcus"
-                >
-                  <%= item.name %>
-                </option>
-                <% }) %>
-              </select>
-              <br />
+                <div>
+                <label for="customer">Select Customer :</label>
+                <select name="Select" value="Select" id="customer" class="p-1 rounded">
+                    <option disabled selected>Select Customer</option>
+                    <% customerdata.forEach((item) => { %>
+                    <option
+                    value="<%= item.name %>--<%= item.add  %>--<%= item.mob  %>--<%= item.gst  %>"
+                    name="selectcus"
+                    id="selectcus"
+                    >
+                    <%= item.name %>
+                    </option>
+                    <% }) %>
+                </select>
+                </div>
+                
+                <div class="d-flex flex-column gap-1">
 
-              <input
-                type="text"
-                name="customer_name"
-                value=""
-                id="customer_name"
-              />
-              <br />
-              <input type="text" name="add" value="" id="add" size="30" />
-              <p class="m-0">
-                Mob. : <input type="text" name="mob" value="" id="mob" />
-              </p>
-              <p class="m-0">
-                GST No. : <input type="text" name="gst" value="" id="gst" />
-              </p>
+                <input
+                    type="text"
+                    name="customer_name"
+                    value=""
+                    id="customer_name"
+                />
+                
+                <input type="text" name="add" value="" id="add" size="30" />
 
-              <!-- add customer link -->
-              <a href="/customer" id="customerLink" class="btn btn-primary m-1">Add Customer</a>
+                <p class="m-0">
+                    Mob. : <input type="text" name="mob" value="" id="mob" />
+                </p>
+
+                <p class="m-0">
+                    GST No. : <input type="text" name="gst" value="" id="gst" />
+                </p>
+                <!-- add customer link -->
+                <a href="/customer" id="customerLink" class="btn btn-primary m-1 align-self-start">Add Customer</a>
+
+                </div>
+
             </div>
 
             <!-- date and invoice no -->
@@ -65,6 +72,7 @@
                   id="invoicedate"
                   name="invoicedate"
                   size="8"
+                  class="p-1 rounded"
                 />
               </p>
 
@@ -76,6 +84,7 @@
                   name="sale_invoice"
                   id=""
                   size="5"
+                  class="p-1 rounded"
                 />
               </p>
             </div>
