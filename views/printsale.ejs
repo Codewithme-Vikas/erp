@@ -17,27 +17,22 @@ input{
 }
 
 @media print{
+  
   #navbar{
     display: none;
   }
-  #sale_particulars th{
-    font-size: 18px;
+
+  table{
+    font-size: 10px;
   }
   .btn-primary{
     display: none;
   }
-  p{
-    font-size: 14px;
-  }
+ 
+
   #whatshapp-link,#printBtn,#note{
     display: none;
-  }
-
-  #product_value{
-    min-width: 100px;
-  }
-
- 
+  } 
 }
 
 </style>
@@ -98,22 +93,21 @@ input{
                 <tbody id="sale_table">                   
                   <% data.product_name.forEach((item,i) =>{   %>
                   <tr>
-                    <td scope="col" > <input class="w-100" readonly type="number" name="" id="" value="<%= i+1 %>"></td>
-                    <td scope="col" > <input class="w-100" readonly type="text" value="<%= item %>" name="" id="product-name"></td>
-                    <td scope="col" > <input class="w-100" readonly type="number" value="<%= data.product_height[i] %>" name="" id=""></td>
-                    <td scope="col" > <input class="w-100" readonly type="number" value="<%= data.product_width[i] %>" name="" id=""></td>
-                    <td scope="col" > <input class="w-100" readonly type="number" value="<%= data.product_area [i] %>" name="" id=""></td> 
-                    <td scope="col" > <input class="w-100" readonly type="number" value="<%= data.product_qty[i] %>" name="" id=""></td>
-                    <td scope="col" > <input class="w-100" readonly type="number" value="<%= data.product_rate[i] %>" name="" id=""></td>
-                    <td scope="col"> <input class="sale_amount" readonly type="number"  value="<%= data.product_value[i] %>" name="" id="product_value"></td>
-                    
+                    <td scope="col"><%= i+1 %></td>
+                    <td scope="col"><%= item %></td>
+                    <td scope="col"><%= data.product_height[i]%></td>
+                    <td scope="col"><%= data.product_width[i]%></td>
+                    <td scope="col"><%= data.product_area[i]%></td>
+                    <td scope="col"><%= data.product_qty[i]%></td>
+                    <td scope="col"><%= data.product_rate[i]%></td>
+                    <td scope="col"><%= data.product_value[i]%></td>
                   </tr>
                 <% }) %>
                 </tbody>
                 <thead>
                   <tr>
                     <th scope="col" colspan="7" >Total</th>
-                    <th scope="col"><input type="number" readonly id="sale_total" value="<%= data.sale_total %>" name="sale_total" ></th>
+                    <td><%= data.sale_total %></td>
                   </tr>
                 </thead>
               </table>
@@ -186,13 +180,14 @@ input{
                <!-- link for send message by whatshapp -->
             <a 
                 id="whatshapp-link" 
-                href="https://wa.me/<%= data.mob %>?text= Customer%20: <%= data.customer_name %> %0A %0A Order%20Summary%0A---------------------------%0A<% data.product_name.forEach((item, i) => { %>Product: <%= item %>%0AQty: <%= data.product_qty[i] %>%0A---------------------------%0A<% }); %>Total Amount: <%= data.sale_gsum %>%0A---------------------------%0AThank you for choosing Ritik Advertising!"
+                href="https://wa.me/<%= data.mob %>?text= Customer%20: <%= data.customer_name %> %0A %0A Order%20Summary%0A---------------------------%0A<% data.product_name.forEach((item, i) => { %>Product: <%= item %>%0AHeight: <%= data.product_height[i] %>%0AWidth: <%= data.product_width[i] %>%0AArea: <%= data.product_area[i] %>%0AQty: <%= data.product_qty[i] %>%0ARate: <%= data.product_rate[i] %>%0A---------------------------%0A<% }); %>Total Amount: <%= data.sale_gsum %>%0A---------------------------%0AThank you for choosing Ritik Advertising!"
                 target="_blank"
                 class="btn btn-success mt-2"
             >
               Send
             </a>
             
+
           
               <button id="printBtn" class="btn btn-primary mt-2 " onclick="printpage()">Print</button>
             </div>
