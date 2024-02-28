@@ -20,6 +20,7 @@ const createdoc = async (req, res) => {
     console.log(error);
   }
 };
+
 const dashboard = async (req, res) => {
   res.render("index");
 };
@@ -81,7 +82,7 @@ const viewreport = async (req, res) => {
   try {
     const name = req.params.name;
     const data = await salemodel.find({ customer_name: name });
-    const receiveddata = await receivedmodel.find();
+    const receiveddata = await receivedmodel.find({ name: name });
     res.render("customerreport", { data, receiveddata });
   } catch (error) {
     console.log(error);

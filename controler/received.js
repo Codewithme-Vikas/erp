@@ -17,7 +17,7 @@ const receivedamt = async (req, res) => {
         
         const name = req.params.name
         const data = await salemodel.find({customer_name: name})
-        const receiveddata = await receivedmodel.find()
+        const receiveddata = await receivedmodel.find({name: name})
         
     
     res.render('received', {data, name, receiveddata});    
