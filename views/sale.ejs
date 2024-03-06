@@ -26,6 +26,11 @@
                 <label for="customer">Select Customer :</label>
                 <select name="Select" value="Select" id="customer" class="p-1 rounded">
                     <option disabled selected>Select Customer</option>
+
+                    <!-- sort according to name -->
+                    <% customerdata.sort((a, b) => a.name.localeCompare(b.name)); %>
+
+
                     <% customerdata.forEach((item) => { %>
                     <option
                     value="<%= item.name %>--<%= item.add  %>--<%= item.mob  %>--<%= item.gst  %>"

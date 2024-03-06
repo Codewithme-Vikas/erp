@@ -1,39 +1,97 @@
 <%- include("partial/head.ejs") %> <%- include("partial/nav.ejs") %>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-2"><%- include("partial/sidebar.ejs") %></div>
-    <div class="col-10">
-      
-        <div class="row bg-light p-3 shadow m-3 ">
-        
-          <h1>Customer Reports</h1>
-          <table class="table-sm table-bordered">
-            <thead>
-              <tr>
-                <th scope="col">Customer Name</th>
-                <th scope="col">Address</th>
-             
-                               
-              </tr>
-            </thead>
-            <tbody>
-              <% data.forEach((item)=>{ %>
-              <tr>
-                <th scope="row"><%= item.name %></th>
-                <td><%= item.add %></td>
-                                
-                <td>
-                  <form method="get" action="/receivedlist/<%= item.name %>">  
-                    <button class="btn btn-primary">Received</button>
-                  </form>
-                </td>
-                </tr>
-              <% }) %>
-            </tbody>
-          </table>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-2"><%- include("partial/sidebar.ejs") %></div>
+                <div class="col-10">
+
+                    <!-- search bar -->
+                    <div class="input-group">
+
+                        <div class="mb-3 m-2 d-flex gap-2">
+
+                            <select id="select-box" class="form-select" aria-label="Default select example">
+                                <option value="customerName">Customer Name</option>
+                                <option value="mobileNo">Mobile No</option>
+                            </select>
+
+                            <input id="search-box" type="email" class="form-control" id="exampleFormControlInput1"
+                                placeholder="Search"/>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row bg-light p-3 shadow m-3 ">
+
+                        <h1>Customer Reports</h1>
+                        <table class="table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Customer Name</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">Mobile</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% data.forEach((item)=>{ %>
+                                    <tr>
+                                        <th scope="row" class="customerName">
+                                            <%= item.name %>
+                                        </th>
+                                        <td class="address">
+                                            <%= item.add %>
+                                        </td>
+                                        <td class="mobileNo">
+                                            <%= item.mob %>
+                                        </td>
+
+                                        <td>
+                                            <form method="get" action="/receivedlist/<%= item.name %>">
+                                                <button class="btn btn-primary">Received</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-<%- include("partial/footer.ejs") %>
+        </div>
+
+        <script>
+            const searchBox = document.getElementById("search-box");
+            const selectBox = document.getElementById("select-box");
+
+            // date named th
+            const addressList = document.getElementsByClassName("address")
+            const customersName = document.getElementsByClassName("customerName")
+            const mobileNoList = document.getElementsByClassName("mobileNo")
+
+            searchBox.addEventListener("input", (e) => {
+                let items;
+                if (selectBox.value === "customerName") {
+                    items = customersName;
+                } else if (selectBox.value === "address") {
+                    items = addressList;
+                } else if (selectBox.value === "mobileNo") {
+                    items = mobileNoList;
+                }
+
+                filterCustomers(e.target.value, items)
+            });
+
+            function filterCustomers(searchKey, Items) {
+                Array.from(Items).forEach(ele => {
+                    if (ele.innerText.toLowerCase().includes(searchKey.toLowerCase())) {
+                        ele.parentElement.style.display = "table-row"
+                    } else {
+                        ele.parentElement.style.display = "none"
+                    }
+                })
+            }
+        </script>
+        <%- include("partial/footer.ejs") %>

@@ -37,7 +37,7 @@
                     <label for="customer">Select Customer :</label>
                     <select  name="Select" value="Select" id="customer" class="p-1 rounded">
                         <% customerdata.forEach((item) => { %>  
-                        <option value="<%= item.name  %> --<%= item.add  %> -- <%= item.mob  %> -- <%= item.gst  %>" name="selectcus" id="selectcus"><%= item.name  %></option>
+                        <option value="<%= item.name  %>--<%= item.add  %>--<%= item.mob  %>--<%= item.gst  %>" name="selectcus" id="selectcus"><%= item.name  %></option>
                         <% }) %>                
                     </select>
                 </div>
@@ -226,10 +226,10 @@
 
 const customer = document.getElementById("customer")
 customer.addEventListener("change", function getvalue(){
-  document.getElementById("customer_name").value = customer.value.split('--')[0]      
-  document.getElementById("add").innerHTML = customer.value.split('--')[1]
-  document.getElementById("mob").innerHTML = customer.value.split('--')[2]
-  document.getElementById("gst").innerHTML = customer.value.split('--')[3]
+    document.getElementById("customer_name").value = customer.value.split('--')[0]      
+  document.getElementById("add").value = customer.value.split('--')[1]
+  document.getElementById("mob").value = customer.value.split('--')[2]
+  document.getElementById("gst").value = customer.value.split('--')[3]
 })
 
 

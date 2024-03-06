@@ -72,7 +72,7 @@ input{
                       
                        
             <p>Invoice No. : <input type="text" readonly value="<%= data.invoice %>" name="sale_invoice" id="" size="5"></p>
-          </div>
+            </div>
           </div>
           
           <div class="row" id="sale_particulars">
@@ -174,13 +174,16 @@ input{
               <input type="number" readonly class="text-end border" name="advance" value="<%= data.advance %>" id="advance"> <br>
 
               <div class="my-2">
+                
                 <textarea name="note" readonly id="note" cols="100" rows="2" class="p-2 " placeholder="Enter your note..." ><%= data.note %></textarea>
               </div>
+
+              
 
                <!-- link for send message by whatshapp -->
             <a 
                 id="whatshapp-link" 
-                href="https://wa.me/<%= data.mob %>?text= Customer%20: <%= data.customer_name %> %0A %0A Order%20Summary%0A---------------------------%0A<% data.product_name.forEach((item, i) => { %>Product: <%= item %>%0AHeight: <%= data.product_height[i] %>%0AWidth: <%= data.product_width[i] %>%0AArea: <%= data.product_area[i] %>%0AQty: <%= data.product_qty[i] %>%0ARate: <%= data.product_rate[i] %>%0A---------------------------%0A<% }); %>Total Amount: <%= data.sale_gsum %>%0A---------------------------%0AThank you for choosing Ritik Advertising!"
+                href="https://wa.me/<%= data.mob %>?text= Customer%20: <%= data.customer_name %> %0A %0A Order%20Summary%0A---------------------------%0A<% data.product_name.forEach((item, i) => { %>Product: <%= item %>%0AHeight: <%= data.product_height[i] %>%0AWidth: <%= data.product_width[i] %>%0AArea: <%= data.product_area[i] %>%0AQty: <%= data.product_qty[i] %>%0ARate: <%= data.product_rate[i] %>%0A---------------------------%0A<% }); %>Total Amount: <%= data.sale_gsum %>%0AAdvance: <%= data.advance %>---------------------------%0AThank you for choosing Ritik Advertising!"
                 target="_blank"
                 class="btn btn-success mt-2"
             >
@@ -191,7 +194,12 @@ input{
           
               <button id="printBtn" class="btn btn-primary mt-2 " onclick="printpage()">Print</button>
             </div>
-          </div>          
+          </div>  
+          
+          <div class="row">
+            <div class="col-8"></div>
+            <div class="col-4 fw-bold text-end my-2">Authorised Signatory</div>
+          </div>
       </div>
     </div>
   

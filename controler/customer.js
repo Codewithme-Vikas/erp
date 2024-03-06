@@ -83,7 +83,7 @@ const viewreport = async (req, res) => {
     const name = req.params.name;
     const data = await salemodel.find({ customer_name: name });
     const receiveddata = await receivedmodel.find({ name: name });
-    res.render("customerreport", { data, receiveddata });
+    return res.render("customerreport", { data, receiveddata });
   } catch (error) {
     console.log(error);
   }
