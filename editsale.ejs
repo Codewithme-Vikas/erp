@@ -1,0 +1,402 @@
+<style>
+  #sale_table input{
+    width: 100%;
+    border-style: none;
+    
+}
+
+   
+</style>
+<%- include("partial/head.ejs") %>
+<%- include("partial/nav.ejs") %>
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2"><%- include("partial/sidebar.ejs") %></div>
+    <div class="col-10">
+      <div class="row bg-light p-3 m-3 shadow"> 
+
+        
+        <form action="/sale/update/<%= data._id %>" method="post"> 
+           
+          <h4 class="text-center m-0">SALE INVOICE</h4>
+          <h2 class="text-center m-0">Ritik Advertising</h2>
+          <p class="text-center m-0">Add. Silarpur Road, Dankaur Distt - G.B. Nagar (U.P.) - 203201</p>
+          <p class="text-center m-0">Mob. - 7055155020 , 9412845464, Email ID - yadav.ritik@gmail.com</p>
+
+          
+          <div class="row">
+
+              <p>Billed To :</p>       
+              
+            <!-- customer data   -->
+            <div class="col-6 d-flex flex-column gap-3">
+
+                <div>
+                    <label for="customer">Select Customer :</label>
+                    <select  name="Select" value="Select" id="customer" class="p-1 rounded">
+                        <% customerdata.forEach((item) => { %>  
+                        <option value="<%= item.name  %>--<%= item.add  %>--<%= item.mob  %>--<%= item.gst  %>" name="selectcus" id="selectcus"><%= item.name  %></option>
+                        <% }) %>                
+                    </select>
+                </div>
+              
+                <div class="d-flex flex-column gap-1">
+                    <input class="rounded p-1" type="text" readonly name="customer_name" value="<%= data.customer_name %>" id="customer_name">             
+                    <input class="rounded p-1" type="text" readonly name="add" value="<%= data.add %>" id="add" size="30"> 
+                    <p class="m-0 ">Mob. : <input type="text" class="rounded " readonly name="mob" value="<%= data.mob %>" id="mob"></p>
+                    <p class="m-0 "> GST No. : <input type="text" class="rounded " readonly name="gst" value="<%= data.gst %>" id="gst"></p> 
+                </div>
+            </div>
+            
+            <!-- date and invoice no -->
+            <div class="col-6 text-end">
+                <% var dt = data.date
+                    newdt = dt.toLocaleDateString("en-IN", {format: "dd-mm-yyyy"})          
+                %>
+            <p> Date : <input type="text" class="rounded p-1" value="<%= newdt %>" id="invoicedate" name="invoicedate" size="8"> </p>  
+                      
+                       
+            <p>Invoice No. : <input type="text" class="rounded p-1" value="<%= data.invoice %>" name="sale_invoice" id="" size="5"></p>
+            </div>
+
+          </div>
+
+
+          <!-- product lists -->
+          <div class="row m-3">
+            <div class="m-2">
+              <label for="">Select Items </label>
+              <select class="form-control w-25"  name="" id="product">
+            <% productdata.forEach((item) => {  %> 
+            <option value="<%= item.stockname  %>"><%= item.stockname %></option> 
+            <% }) %>                
+          </select>
+        </div>
+
+          <div class="d-flex">
+            <div class="m-2">
+              <label for="">Height</label>
+              <input class="form-control" type="number" name="" id="sale_height">
+            </div>
+            <div class="m-2">
+              <label for="">Width</label>
+              <input class="form-control" type="number" name="" id="sale_width">
+            </div>
+            <div class="m-2">
+              <label for="">Area</label>
+              <input class="form-control" readonly type="number" name="" id="sale_area">
+            </div>
+            <div class="m-2">
+              <label for="">Qty.</label>
+              <input class="form-control" type="number" name="" id="sale_qty">
+            </div>
+            <div class="m-2">
+              <label for="">Rate</label>
+              <input class="form-control" type="number" name="" id="sale_rate">
+            </div>
+            <div class="m-2">
+              <label for="">Amount</label>
+              <input class="form-control" readonly type="number" name="" id="sale_value">
+            </div>
+            <div class="mt-4">
+            <input type="button" value="+Add" class="form-control btn-primary" id="create_item">
+          </div>
+            </div>
+            
+          </div>
+          <div class="row">
+            <!-- <table class="table table-bordered border-primary"> -->
+              <table class="table-sm table-bordered">  
+                <thead>
+                  <tr>
+                    <th scope="col" >S.N.</th>
+                    <th scope="col" class="w-50">Particulars</th>
+                    <th scope="col">Height</th>
+                    <th scope="col">Width</th>
+                    <th scope="col">Area</th> 
+                    <th scope="col">Qty</th>
+                    <th scope="col">Rate</th>
+                    <th scope="col">Amount</th>
+                  </tr>
+                </thead>
+                <tbody id="sale_table">                   
+                  <% data.product_name.forEach((item,i) =>{   %>
+                  <tr>
+                    <td scope="col"> <input type="number" name="" id=""></td>
+                    <td scope="col"> <input type="text" value="<%= item %>" name="product_name" id=""></td>
+                    <td scope="col"> <input type="number" value="<%= data.product_height[i] %>" name="product_height" id=""></td>
+                    <td scope="col"> <input type="number" value="<%= data.product_width[i] %>" name="product_width" id=""></td>
+                    <td scope="col"> <input type="number" value="<%= data.product_area [i] %>" name="product_area" id=""></td> 
+                    <td scope="col"> <input type="number" value="<%= data.product_qty[i] %>" name="product_qty" id=""></td>
+                    <td scope="col"> <input type="number" value="<%= data.product_rate[i] %>" name="product_rate" id=""></td>
+                    <td scope="col"> <input type="number" class="sale_amount" value="<%= data.product_value[i] %>" name="product_value" id=""></td>
+                    <td scope="col"> <button class="btn-danger" onclick="remove(this)">X</button></td>
+                  </tr>
+                <% }) %>
+                </tbody>
+                <thead>
+                  <tr>
+                    <th scope="col" colspan="7" >Total</th>
+                    <th scope="col"><input type="number" id="sale_total" value="<%= data.sale_total %>" name="sale_total" ></th>
+                  </tr>
+                </thead>
+
+                <!-- gst -->
+              </table>
+                <div class="row p-0 m-0">
+                  <div class="col-6"> 
+
+                  </div>
+                  <div class="col-6 text-end mt-3 ">
+                    <div class="mt-2">
+                    <label for="">Discount</label>
+                    <input type="number" value="<%= data.sale_discount %>" name="sale_discount" id="sale_discount">
+                  </div>
+                  <div class="mt-2">
+                    <label for="CGST">CGST</label>
+                    <select name="cgst" value="<%= data.cgst %>" id="select_cgst">
+                      <option value="<%= data.cgst %>"><%= data.cgst %>%</option>
+                      <option value="0">0</option>
+                      <option value="2.5">2.5%</option>
+                      <option value="6">6%</option>
+                      <option value="9">9%</option>
+                      <option value="14">14%</option>
+                    </select>
+                    <input type="text" value="<%= data.sale_cgst %>" name="sale_cgst" id="sale_cgst">
+                  </div>
+
+                  <div class="mt-2">
+                    <label for="SGST">SGST</label>
+                    <select name="" id="select_sgst">
+                      <option value="<%= data.sgst %>"><%= data.sgst %>%</option>
+                      <option value="0">0</option>
+                      <option value="2.5">2.5%</option>
+                      <option value="6">6%</option>
+                      <option value="9">9%</option>
+                      <option value="14">14%</option>
+                    </select>
+                    <input type="text" name="sale_sgst" value="<%= data.sale_sgst %>" id="sale_sgst">
+                  </div>
+                  <div class="mt-2">
+                    <label for="IGST">IGST</label>
+                    <select name="" id="select_igst">
+                      <option value="<%= data.igst %>"><%= data.igst %>%</option>
+                      <option value="0">0</option>
+                      <option value="5">5%</option>
+                      <option value="12">12%</option>
+                      <option value="18">18%</option>
+                      <option value="28">28%</option>
+                    </select>
+                    <input type="text" name="sale_igst" value="<%= data.sale_igst %>" id="sale_igst">
+                  </div>
+                  <div class="mt-2">
+                    <label for="" id="sale_gtotal">Total</label>
+                    <input type="text" name="sale_gsum" value="<%= data.sale_gsum %>" id="sale_gsum">
+                  </div>
+                  </div>    
+                </div>
+          </div>
+          
+          <!-- advance recevied and note -->
+          <div class="row">
+            <div class="mt-3 mb-3">
+              <label for="" id="sale_gtotal">Advance Received</label>
+              <input type="number" name="advance" value="<%= data.advance %>" id="advance">
+            </div>
+
+            <div class="my-2">
+              <textarea name="note" id="" cols="100" rows="2" class="p-2 " placeholder="Enter your note..."><%= data.note %></textarea>
+            </div>
+
+          </div>
+
+
+          <input type="submit" value="Update" class="btn-primary p-1" >
+          <input type="reset" value="Reset" class="btn-primary p-1">          
+          
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script> 
+
+const customer = document.getElementById("customer")
+customer.addEventListener("change", function getvalue(){
+    document.getElementById("customer_name").value = customer.value.split('--')[0]      
+  document.getElementById("add").value = customer.value.split('--')[1]
+  document.getElementById("mob").value = customer.value.split('--')[2]
+  document.getElementById("gst").value = customer.value.split('--')[3]
+})
+
+
+const sale_height = document.getElementById("sale_height");
+const sale_width = document.getElementById("sale_width");
+const sale_area = document.getElementById("sale_area");
+const sale_qty = document.getElementById("sale_qty");
+const sale_rate = document.getElementById("sale_rate");
+const sale_value = document.getElementById("sale_value");
+const sale_total = document.getElementById("sale_total")
+const sale_discount = document.getElementById("sale_discount")
+const sale_cgst = document.getElementById("sale_cgst")  
+const sale_sgst = document.getElementById("sale_sgst")
+const sale_igst = document.getElementById("sale_igst")
+const select_cgst = document.getElementById("select_cgst");
+const select_sgst = document.getElementById("select_sgst");
+const select_igst = document.getElementById("select_igst");
+const sale_gsum = document.getElementById("sale_gsum")
+
+// to calcaulate amount- sale value
+function getvalue() {
+  if (sale_area.value == 0) {
+    sale_value.value = sale_qty.value * sale_rate.value;
+  } else {
+    sale_value.value = sale_area.value * sale_qty.value * sale_rate.value;
+  }
+}
+
+
+function getarea(){
+  sale_area.value = sale_height.value*sale_width.value  
+};
+
+function getcgst(){
+  sale_cgst.value = (Number(sale_total.value)-sale_discount.value)*select_cgst.value/100
+  gsum()
+}
+function getsgst(){
+  sale_sgst.value = (Number(sale_total.value)-sale_discount.value)*select_sgst.value/100
+  gsum()
+}
+function getigst(){
+  sale_igst.value = (Number(sale_total.value)-sale_discount.value)*select_igst.value/100
+  gsum()
+}
+
+function gsum(){
+    sale_gsum.value = (Number(sale_total.value)-sale_discount.value)+Number(sale_cgst.value)+Number(sale_sgst.value)+Number(sale_igst.value)
+}
+
+function recalculatesum(){
+    getcgst()
+    getsgst()
+    getigst()
+    gsum()
+}
+
+
+// event listners
+select_cgst.addEventListener("change", getcgst)
+select_sgst.addEventListener("change", getsgst)
+select_igst.addEventListener("change", getigst)
+
+sale_rate.addEventListener("input",  getvalue);
+sale_qty.addEventListener("input",  getvalue);
+sale_width.addEventListener("input",  getarea);
+sale_width.addEventListener("input",  getvalue);
+sale_height.addEventListener("input",  getarea);
+sale_height.addEventListener("input",  getvalue);
+sale_discount.addEventListener("input",  recalculatesum );
+
+
+function sum(){ 
+  const sale_amountarray = document.getElementsByClassName("sale_amount");
+  let sale_totalamount = 0;
+  for (const element of sale_amountarray) {
+     sale_totalamount+=Number(element.value);
+  }
+  sale_total.value = sale_totalamount; 
+}
+
+// remove a tr from products list table
+function remove(e){
+  e.parentNode.parentNode.remove()  
+    sum();
+    getcgst()
+    getsgst()
+    getigst()
+    gsum()
+}
+
+function recalculate(){ }
+
+
+// create a row inside table and invoked amount sum functions
+const create_item = document.getElementById("create_item"); 
+
+create_item.addEventListener( "click", function createitem() {
+    
+    
+    const td1 = document.createElement("td");
+    const td2 = document.createElement("td");
+    const td3 = document.createElement("td");
+    const td4 = document.createElement("td");
+    const td5 = document.createElement("td");
+    const td6 = document.createElement("td");
+    const td7 = document.createElement("td");
+    const td8 = document.createElement("td");
+    const td9 = document.createElement("td");
+    const tr = document.createElement("tr");
+
+    const input2 = document.createElement("input");
+    const input3 = document.createElement("input");
+    const input4 = document.createElement("input");
+    const input5 = document.createElement("input");
+    const input6 = document.createElement("input");
+    const input7 = document.createElement("input");
+    const input8 = document.createElement("input");
+    input8.className = "sale_amount"
+    const btn = document.createElement("button")
+    btn.innerText = "X";
+    btn.className = "btn-danger"
+    btn.setAttribute("onclick", "remove(this)")
+
+    // input2.innerHTML=document.getElementById("product").firstElementChild.value 
+    input2.setAttribute("value", document.getElementById("product").value)
+    input2.setAttribute("name", "product_name")    
+    input3.setAttribute("value", sale_height.value)
+    input3.setAttribute("name", "product_height")
+    input4.setAttribute("value", sale_width.value)
+    input4.setAttribute("name", "product_width")
+    input5.setAttribute("value", sale_area.value)
+    input5.setAttribute("name", "product_area")
+    input6.setAttribute("value", sale_qty.value)
+    input6.setAttribute("name", "product_qty")
+    input7.setAttribute("value", sale_rate.value)
+    input7.setAttribute("name", "product_rate")
+    input8.setAttribute("value", sale_value.value)
+    input8.setAttribute("name", "product_value")
+    
+    td2.appendChild(input2);
+    td3.appendChild(input3);
+    td4.appendChild(input4);
+    td5.appendChild(input5);
+    td6.appendChild(input6);
+    td7.appendChild(input7);
+    td8.appendChild(input8);
+    td9.appendChild(btn);
+    
+    
+    tr.append(td1, td2, td3, td4, td5, td6, td7, td8,td9);
+    document.getElementById("sale_table").appendChild(tr);     
+    sum();
+    getcgst()
+    getsgst()
+    getigst()
+    gsum()
+  sale_height.value=0
+  sale_width.value=0
+  sale_area.value=0
+  sale_qty.value=0
+  sale_rate.value=0
+  sale_value.value=0
+
+})
+
+</script>
+
+<%- include("partial/footer.ejs") %>
+
