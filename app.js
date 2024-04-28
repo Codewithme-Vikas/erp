@@ -19,5 +19,5 @@ app.use("/",web);
 
 // listen on port
 app.listen( process.env.PORT, ()=> { 
-    console.log("Create Server Successfully"); 
+    console.log("Website is running on the port", process.env.PORT); 
 });
