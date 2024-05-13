@@ -33,6 +33,11 @@ input{
   #whatshapp-link,#printBtn,#note{
     display: none;
   } 
+
+  #note{
+    display: block;
+  }
+
 }
 
 </style>
@@ -48,7 +53,7 @@ input{
           <h2 class="text-center m-0">Ritik Advertising</h2>
           <p class="text-center m-0">Add. Silarpur Road, Dankaur Distt - G.B. Nagar (U.P.) - 203201</p>
           <!-- <p class="text-center m-0">GST No. FJDLSJLFDLJKLJL</p> -->
-          <p class="text-center m-0">Mob. 9412845464, Email ID - yadav.ritik@gmail.com</p>
+          <p class="text-center m-0">Mob. 9412845464, Email ID - ritikadvertising@gmail.com</p>
 
           <div class="row mt-3">
 
@@ -167,39 +172,56 @@ input{
 
           </div>
 
-
+          <!-- advance received and note -->
           <div class="row">
             <div class="mt-3 mb-3">
               <label for="" id="sale_gtotal">Advance Received</label>
               <input type="number" readonly class="text-end border" name="advance" value="<%= data.advance %>" id="advance"> <br>
 
               <div class="my-2">
-                
-                <textarea name="note" readonly id="note" cols="100" rows="2" class="p-2 " placeholder="Enter your note..." ><%= data.note %></textarea>
+                <% if( data.note ){ %> 
+                    <p id="note"  class="py-2 " > Note : <%= data.note %></p=>
+                <% } %>
               </div>
 
               
 
-               <!-- link for send message by whatshapp -->
-            <a 
-                id="whatshapp-link" 
-                href="https://wa.me/<%= data.mob %>?text= Customer%20: <%= data.customer_name %> %0A %0A Order%20Summary%0A---------------------------%0A<% data.product_name.forEach((item, i) => { %>Product: <%= item %>%0AHeight: <%= data.product_height[i] %>%0AWidth: <%= data.product_width[i] %>%0AArea: <%= data.product_area[i] %>%0AQty: <%= data.product_qty[i] %>%0ARate: <%= data.product_rate[i] %>%0A---------------------------%0A<% }); %>Total Amount: <%= data.sale_gsum %>%0AAdvance: <%= data.advance %>---------------------------%0AThank you for choosing Ritik Advertising!"
-                target="_blank"
-                class="btn btn-success mt-2"
-            >
-              Send
-            </a>
-            
-
-          
-              <button id="printBtn" class="btn btn-primary mt-2 " onclick="printpage()">Print</button>
             </div>
           </div>  
           
+
+          <!-- payment for and signature -->
           <div class="row">
-            <div class="col-8"></div>
+            <div class="col-8">
+                <p class="fw-bold mb-1">Payment for: </p>
+                    <ul class="d-flex gap-1 flex-column">
+                        <li class="">Bank Name : SBI Dankaur</li>
+                        <li class="">Account No : 42745671639</li>
+                        <li class="">IFSC : SBIN0002329</li>
+                    </ul>
+
+            </div>
             <div class="col-4 fw-bold text-end my-2">Authorised Signatory</div>
           </div>
+
+          <!-- print and send button -->
+          <div class="d-flex gap-2 mb-4">
+            
+               <!-- link for send message by whatshapp -->
+               <a 
+               id="whatshapp-link" 
+               href="https://wa.me/<%= data.mob %>?text= Customer%20: <%= data.customer_name %> %0A %0A Order%20Summary%0A---------------------------%0A<% data.product_name.forEach((item, i) => { %>Product: <%= item %>%0AHeight: <%= data.product_height[i] %>%0AWidth: <%= data.product_width[i] %>%0AArea: <%= data.product_area[i] %>%0AQty: <%= data.product_qty[i] %>%0ARate: <%= data.product_rate[i] %>%0A---------------------------%0A<% }); %>Total Amount: <%= data.sale_gsum %>%0AAdvance: <%= data.advance %>---------------------------%0AThank you for choosing Ritik Advertising!"
+               target="_blank"
+               class="btn btn-success mt-2"
+           >
+             Send
+           </a>
+           
+
+         
+             <button id="printBtn" class="btn btn-primary mt-2 " onclick="printpage()">Print</button>
+          </div>
+          
       </div>
     </div>
   
