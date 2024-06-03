@@ -70,19 +70,19 @@
 
 
                                                 <td>
-                                                    <%= customerSales?.totalSale %>
+                                                    <%= Math.round(customerSales?.totalSale) %>
                                                 </td>
 
                                                 <td>
-                                                    <%= customerSales?.totalAdvance %>
+                                                    <%= Math.round(customerSales?.totalAdvance) %>
                                                 </td>
 
                                                 <td>
-                                                    <%= customerReceived?.totalReceived %>
+                                                    <%= Math.round(customerReceived?.totalReceived) %>
                                                 </td>
 
                                                 <td>
-                                                    <%= customerSales?.totalSale - customerSales?.totalAdvance - customerReceived?.totalReceived %>
+                                                    <%= Math.round(customerSales?.totalSale - customerSales?.totalAdvance - customerReceived?.totalReceived) %>
                                                 </td>
 
                                                 <!-- ------------------------------------------------------------- -->
